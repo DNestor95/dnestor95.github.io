@@ -6,6 +6,8 @@ const withNextra = require("nextra")({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "export",
+reactStrictMode: true,
   // any configs you need
 };
 
