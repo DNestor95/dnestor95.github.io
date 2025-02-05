@@ -3,113 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Nestor Dev</title>
+    <title>Daniel Nestor - Software Developer</title>
     <style>
-        h1{
-            text-align: center;
-            line-height: 2;
-        }
-        p{
-            line-height: 2;
-        }
+        /* Basic Styling - Customize this! */
         body {
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4; /* Light gray background */
-            color: #333; /* Dark gray text color */
+            line-height: 1.6;
+            color: #333;
         }
 
-        header {
-            background-color: #3081a1; /* Darker gray header */
-            color: #fff; /* White text in header */
-            padding: 1em 0;
-            text-align: center; /* Center the header text */
-        }
-
-        nav {
-            background-color: #eee; /* Slightly lighter gray for nav */
-            padding: 0.5em 0;
+        nav { /* Style the navigation bar */
+            background-color: #f0f0f0; /* Example background color */
+            padding: 10px;
         }
 
         nav ul {
             list-style: none;
             margin: 0;
             padding: 0;
-            text-align: center; /* Center the nav items */
+            text-align: center; /* Center the navigation links */
         }
 
         nav li {
             display: inline;
-            margin: 0 1em;
+            margin: 0 15px; /* Add spacing between links */
         }
 
         nav a {
             text-decoration: none;
             color: #333;
-            font-weight: bold;
         }
 
-        main {
-            padding: 20px;
+        .hero { /* ... (Hero section styles from previous example) ... */ }
+        .about-me { /* ... (About me styles from previous example) ... */ }
+        .portfolio { /* Style the portfolio section */
+            padding: 50px;
+            text-align: center;
+        }
+        .project { /* Style individual project items */
+            display: inline-block;
+            width: 30%; /* Adjust as needed */
             margin: 20px;
-            background-color: #fff; /* White background for main content */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            border: 1px solid #ccc; /* Add a border */
+            padding: 20px;
+            box-sizing: border-box; /* Include padding in width calculation */
         }
-
-        article {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #ddd; /* Separator between articles */
-        }
-
-        article h2 {
-            color: #0056b3; /* Blue heading color */
+        .contact { /* Style the contact section */
+            padding: 50px;
             text-align: center;
         }
-
-        article .post-meta {
-            color: #777; /* Lighter gray for meta info */
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-
         footer {
-            background-color: #3081a1;
-            color: #fff;
-            padding: 1em 0;
+            background-color: #333;
+            color: white;
+            padding: 20px;
             text-align: center;
         }
+
+
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Daniel Nestor </h1>
-        <p>Welcome to my site where I share my experiances and projects.</p>
-    </header>
-
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li><a href="tdil.html">TDIL</a></li>
         </ul>
     </nav>
 
-    <main>
+    <section class="hero">
+        <h1>Hi, I'm Daniel, a software developer passionate about building accessible and user-friendly web applications.</h1>
+        <p>I believe that technology can empower everyone, and I strive to create digital experiences that are both beautiful and functional.</p>
+        <a href="#portfolio" class="cta-button">View My Portfolio</a>
+    </section>
 
-        <h1>Finding a way to make an impact</h1>
-        
-        <p>Thank you for visiting my site. I am currently looking for work and my resume and details are listed on the contacts page. </p>
+    <section class="about-me">
+       <img src="your-headshot.jpg" alt="Daniel Nestor">
+        <p>I'm a software developer with a focus on front-end technologies and a passion for creating inclusive and engaging web experiences. I enjoy working with [mention a few technologies/languages]. I'm always learning and exploring new technologies, so feel free to connect!</p>
+    </section>
 
-        <H1>This site is to showcase my pojects and house my Today I learned articles that I write after emplementing or using a new technology or skill</H1>
-        </main>
+    <section class="portfolio" id="portfolio">  <h2>My Portfolio</h2>
+
+        <div class="project">
+            <h3>Project 1</h3>
+            <img src="project1.jpg" alt="Project 1">
+            <p>Short description of project 1.</p>
+        </div>
+
+        <div class="project">
+            <h3>Project 2</h3>
+            <img src="project2.jpg" alt="Project 2">
+            <p>Short description of project 2.</p>
+        </div>
+
+        <div class="project">
+            <h3>Project 3</h3>
+            <img src="project3.jpg" alt="Project 3">
+            <p>Short description of project 3.</p>
+        </div>
+        </section>
+
+    <section class="contact">
+        <h2>Contact Me</h2>
+        <p>Get in touch! [Your contact information or a contact form would go here]</p>
+    </section>
 
     <footer>
-        <p></p>
+        <p>&copy; 2023 Daniel Nestor</p>
     </footer>
+
 
 </body>
 </html>
