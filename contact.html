@@ -44,8 +44,9 @@
         <section class="section fade-in">
             <div class="card">
                 <h2>Quick Message</h2>
-                <p>This form opens your default email client so messages go straight to me.</p>
-                <form class="contact-form" action="mailto:danielnestor95@gmail.com" method="post" enctype="text/plain">
+                <p>This form submits directly to my inbox through Formspree.</p>
+                <form class="contact-form" action="https://formspree.io/f/xaqpeayr" method="POST">
+                    <input type="hidden" name="_subject" value="New portfolio contact message">
                     <label for="name">Name</label>
                     <input id="name" name="name" type="text" required>
 
@@ -62,7 +63,13 @@
     </main>
 
     <footer class="site-footer">
-        <p>Daniel Nestor © 2026</p>
+        <div class="footer-row">
+            <p>Daniel Nestor © 2026</p>
+            <div class="social-links">
+                <a href="https://github.com/DNestor95" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/daniel-nestor-b3685a151/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            </div>
+        </div>
     </footer>
 
     <script src="script.js"></script>
