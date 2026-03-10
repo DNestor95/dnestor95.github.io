@@ -3,97 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Nestor - Software Developer</title>
-    <style>
-        /* Basic Styling - Customize this! */
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            color: #333;
-            
-        }
-
-        nav { /* Style the navigation bar */
-            background-color: #f0f0f0; /* Example background color */
-            padding: 10px;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            text-align: center; /* Center the navigation links */
-        }
-
-        nav li {
-            display: inline;
-            margin: 0 15px; /* Add spacing between links */
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-        }
-        .TDIL{padding: 50px;
-            text-align: center;}
-        .item {
-             display: inline-block;
-            width: 90%; /* Adjust as needed */
-            margin: 20px;
-            border: 1px solid #ccc; /* Add a border */
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .hero { margin: 100px; }
-        .about-me { margin: 100px; }
-        .portfolio { 
-            padding: 50px;
-            text-align: center;
-        }
-        .project { /* Style individual project items */
-            display: inline-block;
-            width: 30%; /* Adjust as needed */
-            margin: 20px;
-            border: 1px solid #ccc; /* Add a border */
-            padding: 20px;
-            box-sizing: border-box; /* Include padding in width calculation */
-        }
-        .contact { /* Style the contact section */
-            padding: 50px;
-            text-align: center;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-
-    </style>
+    <title>TDIL | Daniel Nestor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">Portfolio</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="tdil.html">TDIL</a></li>
-        </ul>
-    </nav>
-<section class="Today I learned" id="TDIL">  <h2>My Portfolio</h2>
-   <div class="Topic">
-            <h3>Messing with actually making this website</h3>
-            <img src="project1.jpg" alt="TOPIC1">
-            <p>So basically, I have done very little web development in terms of actually constructing a front end for a website with features I want. Because of that, I decided that using my own site to build out features I’m interested in would be a great use of my time. It will give me an additional platform to showcase my work and also give me a chance to familiarize myself with more front-end development concepts.
-            </p>
+<body data-page="tdil">
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Daniel Nestor</a>
+            <div class="header-actions">
+                <nav class="site-nav" aria-label="Primary">
+                    <a href="index.html" data-page="home">Home</a>
+                    <a href="projects.html" data-page="projects">Projects</a>
+                    <a href="tdil.html" data-page="tdil">TDIL</a>
+                    <a href="about.html" data-page="about">About</a>
+                    <a href="contact.html" data-page="contact">Contact</a>
+                    <a href="resume.html" data-page="resume">Resume</a>
+                </nav>
+                <button id="themeToggle" class="toggle-btn" type="button" aria-label="Toggle dark mode">theme: dark</button>
+            </div>
         </div>
+    </header>
 
+    <main>
+        <section class="hero fade-in">
+            <span class="eyebrow">Build Journal</span>
+            <h1>Today I Learned</h1>
+            <p>
+                Notes from shipping projects, debugging systems, and learning practical
+                engineering lessons in public.
+            </p>
+        </section>
 
+        <section class="section">
+            <div class="layout-grid">
+                <article class="card span-8 fade-in">
+                    <h3>Building this personal site from scratch</h3>
+                    <p>
+                        I used this site as my front-end training ground. The goal was to move from a
+                        placeholder page to something that actually reflects my work style and can
+                        evolve over time.
+                    </p>
+                    <div class="tag-row">
+                        <span class="tag">Frontend</span>
+                        <span class="tag">HTML/CSS/JS</span>
+                    </div>
+                </article>
+                <article class="card span-4 fade-in">
+                    <h3>What improved</h3>
+                    <ul class="timeline">
+                        <li><strong>Layout:</strong> cohesive multi-page structure</li>
+                        <li><strong>Design:</strong> terminal/editorial visual style</li>
+                        <li><strong>UX:</strong> sticky nav, responsive cards, dark mode</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+    </main>
 
-</section>
+    <footer class="site-footer">
+        <p>Daniel Nestor © 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

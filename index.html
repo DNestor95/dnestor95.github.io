@@ -3,123 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daniel Nestor - Software Developer</title>
-    <style>
-        /* Basic Styling - Customize this! */
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            color: #333;
-            
-        }
-
-        nav { /* Style the navigation bar */
-            background-color: #f0f0f0; /* Example background color */
-            padding: 10px;
-        }
-
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            text-align: center; /* Center the navigation links */
-        }
-
-        nav li {
-            display: inline;
-            margin: 0 15px; /* Add spacing between links */
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-        }
-
-        .hero { margin: 100px; }
-        .about-me { margin: 100px; }
-        .portfolio { 
-            padding: 50px;
-            text-align: center;
-        }
-        .project { /* Style individual project items */
-            display: inline-block;
-            width: 30%; /* Adjust as needed */
-            margin: 20px;
-            border: 1px solid #ccc; /* Add a border */
-            padding: 20px;
-            box-sizing: border-box; /* Include padding in width calculation */
-        }
-        .contact { /* Style the contact section */
-            padding: 50px;
-            text-align: center;
-        }
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-
-    </style>
+    <meta name="description" content="Daniel Nestor personal site - software projects, notes, and contact.">
+    <title>Daniel Nestor | Software Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">Portfolio</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="tdil.html">TDIL</a></li>
-        </ul>
-    </nav>
-
-    <section class="hero">
-        <h1>Hi, I'm Daniel, a software developer passionate about building tools to grant users useful insights to make more informed decissions.</h1>
-        <p>I believe that technology can bring the best out of a creative mind and I strive to make things that bring some value to the people that interact with them.</p>
-        <a href="#portfolio" class="cta-button">View My Portfolio</a>
-    </section>
-
-    <section class="about-me">
-       
-        <p>I'm a software developer with a focus on creating invoative and scalable solutions to data driven questions. I am currently working on a project called Vote 4 and various other endvours.  </p>
-        <p>I encourage you to join me on my jorney through my media sources and take a look at my resume.</p>
-        <a href="Resume 1-30.pdf" class="cta-button" target="_blank">View My Resume</a>
-    
-    </section>
-
-    <section class="portfolio" id="portfolio">  <h2>My Portfolio</h2>
-
-        <div class="project">
-            <h3>Project 1</h3>
-            <img src="project1.jpg" alt="Project 1">
-            <p>Short description of project 1.</p>
+<body data-page="home">
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Daniel Nestor</a>
+            <div class="header-actions">
+                <nav class="site-nav" aria-label="Primary">
+                    <a href="index.html" data-page="home" data-section="#top">Home</a>
+                      <a href="#projects" data-page="projects" data-section="#projects">Projects</a>
+                      <a href="#tdil" data-page="tdil" data-section="#tdil">TDIL</a>
+                    <a href="about.html" data-page="about">About</a>
+                    <a href="contact.html" data-page="contact">Contact</a>
+                    <a href="resume.html" data-page="resume">Resume</a>
+                </nav>
+                <button id="themeToggle" class="toggle-btn" type="button" aria-label="Toggle dark mode">theme: dark</button>
+            </div>
         </div>
+    </header>
 
-        <div class="project">
-            <h3>Project 2</h3>
-            <img src="project2.jpg" alt="Project 2">
-            <p>Short description of project 2.</p>
-        </div>
-
-        <div class="project">
-            <h3>Project 3</h3>
-            <img src="project3.jpg" alt="Project 3">
-            <p>Short description of project 3.</p>
-        </div>
+    <main id="top">
+        <section class="hero fade-in">
+            <span class="eyebrow">Personal Build Log</span>
+            <h1>Building software that turns data into better decisions.</h1>
+            <p>
+                I am Daniel Nestor, a developer focused on practical systems, machine learning,
+                and math-heavy engineering work. This site is where I publish projects,
+                notes, and experiments.
+            </p>
+            <div class="button-row">
+                <a class="btn primary" href="#projects">View Projects</a>
+                <a class="btn ghost" href="Resume 1-30.pdf" target="_blank" rel="noopener noreferrer">Download Resume PDF</a>
+            </div>
         </section>
 
-    <section class="contact">
-        <h2>Contact Me</h2>
-        <p>Get in touch! [Your contact information or a contact form would go here]</p>
-    </section>
+        <section class="section" id="projects">
+            <div class="section-head fade-in">
+                <h2>Featured Projects</h2>
+                <p>Hands-on work across data, tooling, and applied ML.</p>
+            </div>
 
-    <footer>
-        <p>&copy; 2023 Daniel Nestor</p>
+            <div class="layout-grid">
+                <article class="card span-4 fade-in">
+                    <h3>Vote4</h3>
+                    <p>Data-informed civic tooling focused on clear, useful insights for real voters.</p>
+                    <div class="tag-row">
+                        <span class="tag">Data Design</span>
+                        <span class="tag">Civic Tech</span>
+                    </div>
+                </article>
+                <article class="card span-4 fade-in">
+                    <h3>ML Experiments</h3>
+                    <p>Small, testable projects exploring optimization, model behavior, and deployment ideas.</p>
+                    <div class="tag-row">
+                        <span class="tag">Python</span>
+                        <span class="tag">Machine Learning</span>
+                    </div>
+                </article>
+                <article class="card span-4 fade-in">
+                    <h3>Systems Learning</h3>
+                    <p>Low-level and performance-oriented studies that sharpen core engineering fundamentals.</p>
+                    <div class="tag-row">
+                        <span class="tag">Algorithms</span>
+                        <span class="tag">Performance</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section" id="tdil">
+            <div class="section-head fade-in">
+                <h2>Today I Learned</h2>
+                <p>Short entries from my process while building and shipping.</p>
+            </div>
+            <div class="terminal fade-in">
+                <div class="terminal-bar">
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+                    <span class="terminal-dot"></span>
+                </div>
+                <div class="terminal-body">
+                    <p>> set theme=tinygrad-inspired</p>
+                    <p>> result: cleaner layout, stronger hierarchy, faster scanability</p>
+                    <p>> next: more project writeups and implementation deep-dives</p>
+                    <a class="btn ghost" href="tdil.html">Read TDIL Posts</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Daniel Nestor © 2026</p>
     </footer>
 
-
+    <script src="script.js"></script>
 </body>
 </html>

@@ -1,95 +1,70 @@
-<header>
-    <h1>About me </h1>
-    
-        
-      
-</header>
-<style>
-        
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4; /* Light gray background */
-            color: #333; /* Dark gray text color */
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Daniel Nestor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="contact">
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="index.html">Daniel Nestor</a>
+            <div class="header-actions">
+                <nav class="site-nav" aria-label="Primary">
+                    <a href="index.html" data-page="home">Home</a>
+                    <a href="projects.html" data-page="projects">Projects</a>
+                    <a href="tdil.html" data-page="tdil">TDIL</a>
+                    <a href="about.html" data-page="about">About</a>
+                    <a href="contact.html" data-page="contact">Contact</a>
+                    <a href="resume.html" data-page="resume">Resume</a>
+                </nav>
+                <button id="themeToggle" class="toggle-btn" type="button" aria-label="Toggle dark mode">theme: dark</button>
+            </div>
+        </div>
+    </header>
 
-        header {
-            background-color: #3081a1; /* Darker gray header */
-            color: #fff; /* White text in header */
-            padding: 1em 0;
-            text-align: center; /* Center the header text */
-        }
+    <main>
+        <section class="hero fade-in">
+            <span class="eyebrow">Reach Out</span>
+            <h1>Contact</h1>
+            <p>
+                Open to software engineering, data, and ML roles.
+                Use the form below or email directly.
+            </p>
+            <div class="button-row">
+                <a class="btn ghost" href="mailto:danielnestor95@gmail.com">danielnestor95@gmail.com</a>
+                <a class="btn primary" href="Resume 1-30.pdf" target="_blank" rel="noopener noreferrer">Download Resume PDF</a>
+            </div>
+        </section>
 
-        nav {
-            background-color: #eee; /* Slightly lighter gray for nav */
-            padding: 0.5em 0;
-        }
+        <section class="section fade-in">
+            <div class="card">
+                <h2>Quick Message</h2>
+                <p>This form opens your default email client so messages go straight to me.</p>
+                <form class="contact-form" action="mailto:danielnestor95@gmail.com" method="post" enctype="text/plain">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" required>
 
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            text-align: center; /* Center the nav items */
-        }
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" required>
 
-        nav li {
-            display: inline;
-            margin: 0 1em;
-        }
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
 
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
+                    <button class="btn primary" type="submit">Send</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
-        main {
-            padding: 20px;
-            margin: 20px;
-            background-color: #fff; /* White background for main content */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        }
+    <footer class="site-footer">
+        <p>Daniel Nestor © 2026</p>
+    </footer>
 
-        article {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #ddd; /* Separator between articles */
-        }
-
-        article h2 {
-            color: #0056b3; /* Blue heading color */
-            text-align: center;
-        }
-
-        article .post-meta {
-            color: #777; /* Lighter gray for meta info */
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background-color: #3081a1;
-            color: #fff;
-            padding: 1em 0;
-            text-align: center;
-        }
-        h2{
-            text-align: center;
-        }
-    </style>
-    <body>
-        
-<nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="tdil.html">TDIL</a></li>
-    </ul>
-</nav>
-
-<h2<a href="resume.txt">Resume</h2>
-
-</p>
-    </body>
+    <script src="script.js"></script>
+</body>
+</html>
