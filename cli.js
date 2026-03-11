@@ -36,7 +36,7 @@ function renderHeader() {
 
 function help() {
   [
-    "TempleOS Portfolio System v1.0",
+    "Daniel Nestor Portfolio System v1.4356.8",
     "--------------------------------",
     "",
     "SYSTEM COMMANDS",
