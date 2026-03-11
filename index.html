@@ -1,152 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Daniel Nestor personal site - software projects, notes, and contact.">
-    <title>Daniel Nestor | Software Developer</title>
-    <link rel="stylesheet" href="styles.css?v=windows-me-1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daniel Nestor - Windows Me Desktop</title>
+    <style>
+        :root {
+            --desktop: #3f75ad;
+            --desktop-dark: #2f6297;
+            --desktop-light: #5f93c7;
+            --taskbar: #c8c4bb;
+            --window-face: #ece9d8;
+            --window-edge-dark: #7d7a73;
+            --window-edge-mid: #b9b4ab;
+            --window-edge-light: #ffffff;
+            --title-top: #d7d7d7;
+            --title-bottom: #9b9992;
+            --text: #111;
+            --blue-link: #002db3;
+            --icon-shadow: rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: none;
+            image-rendering: pixelated;
+        }
+
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Tahoma, Verdana, Arial, sans-serif;
+            font-size: 11px;
+            color: var(--text);
+            background: var(--desktop);
+        }
+
+        body {
+            position: relative;
+            background:
+                linear-gradient(90deg, transparent 0 42%, rgba(113, 175, 236, 0.95) 42% 69%, transparent 69% 100%),
+                linear-gradient(180deg, transparent 0 18%, rgba(87, 145, 208, 0.8) 18% 31%, transparent 31% 100%),
+                linear-gradient(90deg, transparent 0 52%, rgba(88, 164, 88, 0.95) 52% 100%),
+                linear-gradient(180deg, var(--desktop-light) 0%, var(--desktop) 34%, var(--desktop-dark) 100%);
+        }
+
+        .desktop {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding-bottom: 28px;
+        }
+
+        .icon-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .icons {
+            position: absolute;
+            left: 12px;
+            top: 12px;
+            display: grid;
+            grid-template-columns: repeat(2, 70px);
+            gap: 16px 8px;
+            z-index: 1;
+        }
+
+        .icon {
+            width: 70px;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 0 var(--icon-shadow);
+            user-select: none;
+        }
+
+        .icon-art {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 5px;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .icon.my-computer .icon-art {
+            background: linear-gradient(180deg, #a7e5ff 0 34%, #4ca3d9 34% 68%, #dadad8 68%);
+            border: 1px solid #dff7ff;
+            box-shadow: inset 0 0 0 1px #2c5a79;
+        }
+
+        .icon.folder .icon-art {
+            background: linear-gradient(180deg, #ffe89a 0 35%, #d2a53c 35% 100%);
+            clip-path: polygon(0 24%, 28% 24%, 36% 8%, 62% 8%, 70% 24%, 100% 24%, 100% 100%, 0 100%);
+            box-shadow: inset 0 0 0 1px rgba(112, 79, 7, 0.65);
+        }
+
+        .icon.globe .icon-art {
+            border-radius: 50%;
+            background: radial-gradient(circle at 38% 35%, #b9f6ff 0 18%, #4fafd8 19% 48%, #2f5da9 49% 100%);
+            box-shadow: inset 0 0 0 1px #dff7ff;
+        }
+
+        .icon.doc .icon-art {
+            background: linear-gradient(180deg, #ffffff 0%, #e5edf2 100%);
+            clip-path: polygon(0 0, 76% 0, 100% 24%, 100% 100%, 0 100%);
+            box-shadow: inset 0 0 0 1px #8798a6;
+        }
+
+        .icon.paint .icon-art {
+            background: linear-gradient(180deg, #fff2c8 0, #e4d2aa 100%);
+            border-radius: 50% 50% 42% 42%;
+            box-shadow: inset 0 0 0 1px #8a795c;
+        }
+
+        .icon span {
+            display: block;
+            line-height: 1.15;
+            font-size: 11px;
+        }
+
+        .window {
+            position: absolute;
+            background: var(--window-face);
+            border-top: 1px solid var(--window-edge-light);
+            border-left: 1px solid var(--window-edge-light);
+            border-right: 1px solid var(--window-edge-dark);
+            border-bottom: 1px solid var(--window-edge-dark);
+            box-shadow: inset -1px -1px 0 var(--window-edge-mid), inset 1px 1px 0 #f8f6ef;
+        }
+
+        .my-computer-window {
+            left: 190px;
+            top: 120px;
+            width: 430px;
+            height: 400px;
+            z-index: 3;
+        }
+
+        .titlebar {
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2px 0 4px;
+            background: linear-gradient(180deg, var(--title-top) 0%, var(--title-bottom) 100%);
+            border-bottom: 1px solid #706d67;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .titlebar .left {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .mini-icon {
+            width: 14px;
+            height: 14px;
+            background: linear-gradient(180deg, #94d9ff 0 35%, #418bc0 35% 70%, #e2dfd7 70%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: inset 0 0 0 1px #295879;
+            flex: none;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1px;
+            flex: none;
+        }
+
+        .controls b {
+            display: inline-grid;
+            place-items: center;
+            width: 16px;
+            height: 14px;
+            font-size: 10px;
+            color: #111;
+            background: linear-gradient(180deg, #f7f4ee 0%, #c4c0b7 100%);
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #68645e;
+            border-bottom: 1px solid #68645e;
+            font-weight: normal;
+        }
+
+        .menubar {
+            height: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 8px;
+            background: #ddd9cd;
+            border-bottom: 1px solid #aca79c;
+        }
+
+        .window-content {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            height: calc(100% - 38px);
+            background: #fff;
+        }
+
+        .left-pane {
+            background: linear-gradient(180deg, #f8f6f2 0%, #ece9df 100%);
+            border-right: 1px solid #c8c3b7;
+            padding: 8px;
+        }
+
+        .left-pane p {
+            margin: 0 0 10px;
+            line-height: 1.2;
+        }
+
+        .left-pane .links a {
+            display: block;
+            color: var(--blue-link);
+            margin: 0 0 5px;
+            text-decoration: underline;
+        }
+
+        .right-pane {
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drive-row {
+            display: flex;
+            gap: 22px;
+            padding: 10px 14px 8px;
+            min-height: 64px;
+            align-items: flex-start;
+            border-bottom: 1px solid #d4dce6;
+        }
+
+        .drive-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .drive {
+            width: 68px;
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.15;
+        }
+
+        .drive .drive-icon {
+            width: 30px;
+            height: 14px;
+            margin: 0 auto 5px;
+            border-radius: 6px 6px 3px 3px;
+            background: linear-gradient(180deg, #e4e1db 0%, #9a968f 60%, #d5d0c6 100%);
+            box-shadow: inset 0 0 0 1px #6c6860;
+        }
+
+        .drive.control-panel .drive-icon {
+            width: 26px;
+            height: 22px;
+            border-radius: 3px;
+            background: linear-gradient(180deg, #ffe68c, #d5a83c);
+            clip-path: polygon(0 30%, 30% 30%, 38% 8%, 64% 8%, 72% 30%, 100% 30%, 100% 100%, 0 100%);
+        }
+
+        .page-title {
+            padding: 8px 12px 6px;
+            font-size: 20px;
+            font-weight: bold;
+            border-top: 1px solid #bcc7d2;
+            border-bottom: 2px solid #92abc0;
+            background: #f1f1f1;
+        }
+
+        .page-copy {
+            padding: 10px 12px;
+            line-height: 1.35;
+            font-size: 11px;
+            flex: 1;
+        }
+
+        .page-copy a {
+            color: var(--blue-link);
+            display: block;
+            margin: 6px 0 0;
+        }
+
+        .statusbar {
+            height: 18px;
+            display: grid;
+            grid-template-columns: 1fr 95px;
+            border-top: 1px solid #ada89e;
+            background: #ddd9cd;
+        }
+
+        .statusbar div {
+            padding: 2px 6px;
+            border-right: 1px solid #ada89e;
+        }
+
+        .statusbar div:last-child {
+            border-right: 0;
+        }
+
+        .taskbar {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 28px;
+            background: linear-gradient(180deg, #dedad0 0%, var(--taskbar) 100%);
+            border-top: 1px solid #f7f4ed;
+            display: flex;
+            align-items: stretch;
+            gap: 2px;
+            padding: 2px;
+            z-index: 10;
+        }
+
+        .start-button,
+        .task-button,
+        .clock {
+            border-top: 1px solid #fff;
+            border-left: 1px solid #fff;
+            border-right: 1px solid #6d6962;
+            border-bottom: 1px solid #6d6962;
+            background: linear-gradient(180deg, #f5f1e8 0%, #d4d0c8 100%);
+        }
+
+        .start-button {
+            min-width: 58px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 10px 0 8px;
+            font-style: italic;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(180deg, #45b84e 0%, #22812c 100%);
+            border-top-color: #b8f0be;
+            border-left-color: #b8f0be;
+            border-right-color: #0b4e12;
+            border-bottom-color: #0b4e12;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .task-buttons {
+            display: flex;
+            gap: 2px;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .task-button {
+            min-width: 140px;
+            max-width: 180px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 0 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .clock {
+            min-width: 72px;
+            display: inline-grid;
+            place-items: center;
+            padding: 0 8px;
+            margin-left: auto;
+        }
+
+        @media (max-width: 950px) {
+            body {
+                overflow: auto;
+            }
+
+            .desktop {
+                min-width: 930px;
+                min-height: 640px;
+            }
+        }
+    </style>
 </head>
-<body data-page="home">
-    <header class="site-header">
-        <div class="header-inner">
-            <a class="brand" href="index.html">Daniel Nestor</a>
-            <div class="header-actions">
-                <nav class="site-nav" aria-label="Primary">
-                    <a href="index.html" data-page="home" data-section="#top">Home</a>
-                      <a href="#projects" data-page="projects" data-section="#projects">Projects</a>
-                      <a href="#tdil" data-page="tdil" data-section="#tdil">TDIL</a>
-                    <a href="portal.html" data-page="portal">App</a>
-                    <a href="about.html" data-page="about">About</a>
-                    <a href="contact.html" data-page="contact">Contact</a>
-                    <a href="resume.html" data-page="resume">Resume</a>
-                </nav>
-                <button id="themeToggle" class="toggle-btn" type="button" aria-label="Toggle dark mode">theme: dark</button>
-            </div>
+<body>
+    <div class="desktop">
+        <div class="icons">
+            <a class="icon-link" href="index.html"><div class="icon my-computer"><div class="icon-art"></div><span>My Computer</span></div></a>
+            <a class="icon-link" href="resume.html"><div class="icon doc"><div class="icon-art"></div><span>Resume.txt</span></div></a>
+            <a class="icon-link" href="projects.html"><div class="icon folder"><div class="icon-art"></div><span>My Projects</span></div></a>
+            <a class="icon-link" href="portal.html"><div class="icon globe"><div class="icon-art"></div><span>Internet</span></div></a>
+            <a class="icon-link" href="about.html"><div class="icon folder"><div class="icon-art"></div><span>My Documents</span></div></a>
+            <a class="icon-link" href="contact.html"><div class="icon paint"><div class="icon-art"></div><span>Contact Me</span></div></a>
+            <a class="icon-link" href="tdil.html"><div class="icon doc"><div class="icon-art"></div><span>Read Me</span></div></a>
+            <a class="icon-link" href="Resume 1-30.pdf" target="_blank" rel="noopener noreferrer"><div class="icon folder"><div class="icon-art"></div><span>Downloads</span></div></a>
         </div>
-    </header>
 
-    <main id="top">
-        <aside class="side-nav" aria-label="Site Sections">
-            <h2>Personal Portfolio Explorer</h2>
-            <a href="index.html">Home</a>
-            <a href="about.html">About Me</a>
-            <a href="projects.html">Projects</a>
-            <a href="tdil.html">TDIL</a>
-            <a href="resume.html">Resume</a>
-            <a href="contact.html">Contact</a>
-            <a href="portal.html">App Access</a>
-        </aside>
-        <div class="content-pane">
-        <section class="hero fade-in">
-            <span class="eyebrow">Personal Build Log</span>
-            <h1>Building software that turns data into better decisions.</h1>
-            <p>
-                I am Daniel Nestor, a developer focused on practical systems, machine learning,
-                and math-heavy engineering work. This site is where I publish projects,
-                notes, and experiments.
-            </p>
-            <div class="button-row">
-                <a class="btn primary" href="#projects">View Projects</a>
-                <a class="btn ghost" href="Resume 1-30.pdf" target="_blank" rel="noopener noreferrer">Download Resume PDF</a>
-            </div>
-        </section>
-
-        <section class="section" id="projects">
-            <div class="section-head fade-in">
-                <h2>Featured Projects</h2>
-                <p>Hands-on work across data, tooling, and applied ML.</p>
-            </div>
-
-            <div class="layout-grid">
-                <article class="card span-4 fade-in">
-                    <h3>Vote4</h3>
-                    <p>Data-informed civic tooling focused on clear, useful insights for real voters.</p>
-                    <div class="button-row">
-                      <a class="btn ghost" href="https://github.com/DNestor95/Vote4" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-                    </div>
-                    <div class="tag-row">
-                        <span class="tag">Data Design</span>
-                        <span class="tag">Civic Tech</span>
-                    </div>
-                </article>
-                <article class="card span-4 fade-in">
-                    <h3>DealMaker</h3>
-                    <p>A project focused on helping users compare and evaluate deal structures with better clarity.</p>
-                    <div class="button-row">
-                      <a class="btn ghost" href="https://github.com/DNestor95/DealMaker" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-                    </div>
-                    <div class="tag-row">
-                        <span class="tag">Python</span>
-                        <span class="tag">Decision Support</span>
-                    </div>
-                </article>
-                <article class="card span-4 fade-in">
-                    <h3>Systems Learning</h3>
-                    <p>Low-level and performance-oriented studies that sharpen core engineering fundamentals.</p>
-                    <div class="tag-row">
-                        <span class="tag">Algorithms</span>
-                        <span class="tag">Performance</span>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <section class="section" id="tdil">
-            <div class="section-head fade-in">
-                <h2>Today I Learned</h2>
-                <p>Short entries from my process while building and shipping.</p>
-            </div>
-            <div class="terminal fade-in">
-                <div class="terminal-bar">
-                    <span class="terminal-dot"></span>
-                    <span class="terminal-dot"></span>
-                    <span class="terminal-dot"></span>
+        <section class="window my-computer-window">
+            <div class="titlebar">
+                <div class="left">
+                    <div class="mini-icon"></div>
+                    <div class="text">My Computer</div>
                 </div>
-                <div class="terminal-body">
-                    <p>> set theme=tinygrad-inspired</p>
-                    <p>> result: cleaner layout, stronger hierarchy, faster scanability</p>
-                    <p>> next: more project writeups and implementation deep-dives</p>
-                    <a class="btn ghost" href="tdil.html">Read TDIL Posts</a>
+                <div class="controls"><b>-</b><b>[]</b><b>x</b></div>
+            </div>
+
+            <div class="menubar">
+                <span>File</span>
+                <span>Edit</span>
+                <span>View</span>
+                <span>Favorites</span>
+                <span>Tools</span>
+                <span>Help</span>
+            </div>
+
+            <div class="window-content">
+                <aside class="left-pane">
+                    <p><strong>Portfolio Explorer</strong></p>
+                    <p>Select a folder to open a page.</p>
+                    <div class="links">
+                        <a href="about.html">About Me</a>
+                        <a href="projects.html">Projects</a>
+                        <a href="tdil.html">TDIL</a>
+                        <a href="resume.html">Resume</a>
+                        <a href="contact.html">Contact</a>
+                        <a href="portal.html">App Access</a>
+                    </div>
+                </aside>
+
+                <div class="right-pane">
+                    <div class="drive-row">
+                        <a class="drive-link" href="projects.html"><div class="drive"><div class="drive-icon"></div><div>Projects</div><div>(A:)</div></div></a>
+                        <a class="drive-link" href="resume.html"><div class="drive"><div class="drive-icon"></div><div>Resume</div><div>(C:)</div></div></a>
+                        <a class="drive-link" href="portal.html"><div class="drive"><div class="drive-icon"></div><div>Apps</div><div>(D:)</div></div></a>
+                        <a class="drive-link" href="contact.html"><div class="drive control-panel"><div class="drive-icon"></div><div>Contact</div></div></a>
+                    </div>
+
+                    <div class="page-title">Daniel Nestor - Portfolio Explorer</div>
+                    <div class="page-copy">
+                        Software developer focused on data-driven products, machine learning, and practical systems.
+                        <a href="about.html">Open About</a>
+                        <a href="projects.html">Open Projects</a>
+                        <a href="tdil.html">Open TDIL</a>
+                        <a href="resume.html">Open Resume</a>
+                    </div>
                 </div>
             </div>
+
+            <div class="statusbar">
+                <div>7 object(s)</div>
+                <div>Ready</div>
+            </div>
         </section>
 
-                <section class="section" id="auth">
-                    <div class="section-head fade-in">
-                        <h2>Application Access</h2>
-                        <p>Use this portal to sign in or create an account in your external app.</p>
-                    </div>
-                    <div class="layout-grid">
-                        <article class="card span-6 fade-in">
-                            <h3>Login</h3>
-                            <p>Returning users can sign in and continue where they left off.</p>
-                            <div class="button-row">
-                                <a class="btn primary" href="portal.html">Go To Login</a>
-                            </div>
-                        </article>
-                        <article class="card span-6 fade-in">
-                            <h3>Register</h3>
-                            <p>New users can create an account and start using the application.</p>
-                            <div class="button-row">
-                                <a class="btn ghost" href="portal.html">Go To Register</a>
-                            </div>
-                        </article>
-                    </div>
-                </section>
+        <footer class="taskbar">
+            <div class="start-button">Start</div>
+            <div class="task-buttons">
+                <div class="task-button"><div class="mini-icon" style="width:12px;height:12px"></div>My Computer</div>
+                <div class="task-button"><div class="mini-icon" style="width:12px;height:12px"></div>Portfolio Explorer</div>
             </div>
-    </main>
-
-    <footer class="site-footer">
-        <div class="footer-row">
-            <p>Daniel Nestor © 2026</p>
-            <div class="social-links">
-                <a href="https://github.com/DNestor95" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="https://www.linkedin.com/in/daniel-nestor-b3685a151/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+            <div class="clock">2:45 PM</div>
+        </footer>
+    </div>
 </body>
 </html>

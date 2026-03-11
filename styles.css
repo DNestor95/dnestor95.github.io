@@ -98,18 +98,48 @@ main {
 
 .side-nav a {
   display: block;
-  margin: 0 0 8px;
-  padding: 7px 8px;
+  margin: 0 0 12px;
+  padding: 8px 10px 8px 12px;
   text-decoration: none;
   color: #000;
-  border: 1px solid #c7c2aa;
-  background: linear-gradient(180deg, #fcfbf3 0%, #e4e1d0 100%);
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #b8b49f;
+  border: 1px solid #8e8b7e;
+  background: linear-gradient(180deg, #fff8c7 0%, #f0df94 100%);
+  box-shadow: inset 1px 1px 0 #fff8dc, inset -1px -1px 0 #d2be72;
   border-radius: 6px;
+  position: relative;
+  font-weight: 700;
+}
+
+.side-nav a::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: -7px;
+  width: 34px;
+  height: 8px;
+  border: 1px solid #8e8b7e;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  background: linear-gradient(180deg, #fff8cf 0%, #f1df97 100%);
+}
+
+.side-nav a::after {
+  content: "OPEN";
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: #3a6ea5;
 }
 
 .side-nav a:hover {
   background: linear-gradient(180deg, #d8e8fb 0%, #c6dbf7 100%);
+  border-color: #4d6f96;
+}
+
+.side-nav a:hover::before {
+  border-color: #4d6f96;
+  background: linear-gradient(180deg, #dfedff 0%, #c9dcf7 100%);
 }
 
 .content-pane {
