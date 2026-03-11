@@ -12,26 +12,26 @@
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html">Daniel Nestor</a>
+      <a class="brand" href="#home">Daniel Nestor</a>
       <nav class="nav" aria-label="Primary">
-        <a aria-current="page" href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="projects.html">Projects</a>
-        <a href="tdil.html">TDIL</a>
-        <a href="resume.html">Resume</a>
-        <a href="contact.html">Contact</a>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#tdil">TDIL</a>
+        <a href="#resume">Resume</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
+    <section id="home" class="hero anchor-section">
       <h1>Same portfolio content, built for non-terminal navigation.</h1>
       <p>
         This is the modern responsive version of Daniel Nestor's portfolio. It mirrors the terminal sections while making everything accessible with direct links and clean mobile-friendly layouts.
       </p>
       <div class="actions">
-        <a class="btn primary" href="projects.html">View Projects</a>
+        <a class="btn primary" href="#projects">View Projects</a>
         <a class="btn" href="../index.html">Back to Terminal Version</a>
       </div>
     </section>
@@ -40,33 +40,111 @@
       <article class="card">
         <h2>About</h2>
         <p>Background, education, and software development focus.</p>
-        <a href="about.html">Open About</a>
+        <a href="#about">Open About</a>
       </article>
       <article class="card">
         <h2>Projects</h2>
         <p>Vote4 and DealMaker repositories with details.</p>
-        <a href="projects.html">Open Projects</a>
+        <a href="#projects">Open Projects</a>
       </article>
       <article class="card">
         <h2>TDIL</h2>
         <p>Build notes and implementation lessons learned.</p>
-        <a href="tdil.html">Open TDIL</a>
+        <a href="#tdil">Open TDIL</a>
       </article>
       <article class="card">
         <h2>Resume</h2>
         <p>Direct access to the latest downloadable resume.</p>
-        <a href="../Resume 1-30.pdf" target="_blank" rel="noopener noreferrer">Open Resume PDF</a>
+        <a href="#resume">Open Resume</a>
       </article>
       <article class="card">
         <h2>Contact</h2>
         <p>Email and social links, no terminal commands required.</p>
-        <a href="contact.html">Open Contact</a>
+        <a href="#contact">Open Contact</a>
       </article>
       <article class="card">
         <h2>App Portal</h2>
         <p>Access the app area used by the terminal command <strong>OPEN APP</strong>.</p>
         <a href="../portal.html">Open App Portal</a>
       </article>
+    </section>
+
+    <section id="about" class="section anchor-section">
+      <h1>About</h1>
+      <p class="meta">Information from terminal command: ABOUT</p>
+      <article class="card">
+        <h3>Daniel Nestor</h3>
+        <p>Software developer focused on data-driven products, applied math, and machine learning systems.</p>
+      </article>
+    </section>
+
+    <section id="projects" class="section anchor-section">
+      <h1>Projects</h1>
+      <p class="meta">Information from terminal commands: PROJECTS, TOPREP, DATA</p>
+      <div class="grid">
+        <article class="card">
+          <h3>Vote4</h3>
+          <p>Sales analytics platform project (TOPREP).</p>
+          <a href="https://github.com/DNestor95/Vote4" target="_blank" rel="noopener noreferrer">Open Vote4 Repository</a>
+        </article>
+        <article class="card">
+          <h3>DealMaker</h3>
+          <p>Machine learning and analytics work (DATA).</p>
+          <a href="https://github.com/DNestor95/DealMaker" target="_blank" rel="noopener noreferrer">Open DealMaker Repository</a>
+        </article>
+        <article class="card">
+          <h3>Tools and Lab</h3>
+          <ul class="clean">
+            <li>Development utilities and scripts</li>
+            <li>Experimental projects and prototypes</li>
+            <li>Demos include ASCII and fractal previews</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="tdil" class="section anchor-section">
+      <h1>TDIL</h1>
+      <p class="meta">Information from terminal command: TDIL</p>
+      <article class="card">
+        <p>Build notes and implementation lessons from ongoing portfolio and product work.</p>
+        <ul class="clean">
+          <li>Iterative UI redesigns from static pages to command-line UX</li>
+          <li>Static hosting constraints and deployment-friendly routing</li>
+          <li>Fast prototyping patterns for personal projects</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="resume" class="section anchor-section">
+      <h1>Resume</h1>
+      <p class="meta">Information from terminal command: RESUME</p>
+      <article class="card">
+        <p>Download the latest resume PDF:</p>
+        <p><a class="btn primary" href="../Resume 1-30.pdf" target="_blank" rel="noopener noreferrer">Open Resume PDF</a></p>
+      </article>
+    </section>
+
+    <section id="contact" class="section anchor-section">
+      <h1>Contact</h1>
+      <p class="meta">Information from terminal command: CONTACT</p>
+      <div class="grid">
+        <article class="card">
+          <h3>Email</h3>
+          <p><a href="mailto:danielnestor95@gmail.com">danielnestor95@gmail.com</a></p>
+        </article>
+        <article class="card">
+          <h3>Profiles</h3>
+          <ul class="clean">
+            <li><a href="https://github.com/DNestor95" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/daniel-nestor-b3685a151/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Portal</h3>
+          <p><a href="../portal.html">Open App Portal</a></p>
+        </article>
+      </div>
     </section>
   </main>
 

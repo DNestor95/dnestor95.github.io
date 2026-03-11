@@ -21,6 +21,10 @@ body {
   font-family: "Space Grotesk", "Avenir Next", "Segoe UI", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 a {
   color: var(--accent);
   text-decoration-thickness: 2px;
@@ -138,6 +142,10 @@ a {
 
 .section {
   padding: 22px 0;
+}
+
+.anchor-section {
+  scroll-margin-top: 86px;
 }
 
 .section h1 {
