@@ -110,8 +110,12 @@ function help() {
 function showAbout() {
   [
     "Daniel Nestor",
-    "Software developer focused on data-driven products, applied math, and machine learning systems.",
-    ""
+    "Thank you for visiting my site and I hope that you enjoy which ever view you decide to examine."
+    ,"This is is to house the projects I work on, give my friends a login for the tools that we use sometimes",
+    "and to have a place to experiment and learn new things.",
+    "Again, that you for visiting and I hope you find something interesting here as I continue to add more fun things!"
+    
+
   ].forEach(print);
   printPromptMarker();
 }
