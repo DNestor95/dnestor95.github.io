@@ -13,7 +13,7 @@ const links = {
   VOTE4: "https://github.com/DNestor95/Vote4",
   DEALMAKER: "https://github.com/DNestor95/DealMaker",
   RESUME: "Resume 1-30.pdf",
-  CONTACT: "mailto:danielnestor95@gmail.com",
+  CONTACT: "mailto:me@dnestor95.com",
   APP: "portal.html"
 };
 
@@ -142,7 +142,7 @@ function showResume() {
 function showContact() {
   [
     "Contact",
-    "Email: danielnestor95@gmail.com",
+    "Email: me@dnestor95.com",
     "type: OPEN CONTACT",
     ""
   ].forEach(print);
