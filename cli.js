@@ -60,11 +60,11 @@ function help() {
     "DEVELOPMENT",
     "--------------------------------",
     "",
-    "TOPREP",
-    "    Sales analytics platform project",
+    "VOTE4",
+    "    Sales analytics platform project repository",
     "",
-    "DATA",
-    "    Machine learning + analytics work",
+    "DEALMAKER",
+    "    Machine learning + analytics work repository",
     "",
     "TOOLS",
     "    Development utilities and scripts",
@@ -111,9 +111,9 @@ function showAbout() {
   [
     "Daniel Nestor",
     "Thank you for visiting my site and I hope that you enjoy which ever view you decide to examine."
-    ,"This is is to house the projects I work on, give my friends a login for the tools that we use sometimes",
+    ,"This site is to house the projects I work on, give my friends a login for the tools that we use sometimes",
     "and to have a place to experiment and learn new things.",
-    "Again, that you for visiting and I hope you find something interesting here as I continue to add more fun things!"
+    "Again, thank you for visiting and I hope you find something interesting here as I continue to add more fun things!"
     
 
   ].forEach(print);
@@ -200,7 +200,7 @@ function handleCommand(raw) {
     return;
   }
   if (cmd === "LS") {
-    print("ABOUT TDIL PROJECTS RESUME CONTACT APP TOPREP DATA TOOLS LAB DEMO ASCII FRACTAL");
+    print("ABOUT TDIL PROJECTS RESUME CONTACT APP VOTE4 DEALMAKER TOOLS LAB DEMO ASCII FRACTAL");
     print();
     printPromptMarker();
     return;
@@ -244,16 +244,16 @@ function handleCommand(raw) {
     printPromptMarker();
     return;
   }
-  if (cmd === "TOPREP") {
-    print("TOPREP");
+  if (cmd === "VOTE4" || cmd === "TOPREP") {
+    print("VOTE4");
     print("Sales analytics platform project");
     print("Repository: OPEN VOTE4");
     print();
     printPromptMarker();
     return;
   }
-  if (cmd === "DATA") {
-    print("DATA");
+  if (cmd === "DEALMAKER" || cmd === "DEALMKAER" || cmd === "DATA") {
+    print("DEALMAKER");
     print("Machine learning + analytics work");
     print("Repository: OPEN DEALMAKER");
     print();
