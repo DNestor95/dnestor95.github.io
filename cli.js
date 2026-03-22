@@ -10,7 +10,7 @@ function focusInput() {
 const links = {
   GITHUB: "https://github.com/DNestor95",
   LINKEDIN: "https://www.linkedin.com/in/daniel-nestor-b3685a151/",
-  VOTE4: "https://github.com/DNestor95/Vote4",
+  WEBSITE: "https://github.com/DNestor95/dnestor95.github.io",
   DEALMAKER: "https://github.com/DNestor95/DealMaker",
   RESUME: "Resume 1-30.pdf",
   CONTACT: "mailto:me@dnestor95.com",
@@ -60,8 +60,8 @@ function help() {
     "DEVELOPMENT",
     "--------------------------------",
     "",
-    "VOTE4",
-    "    Sales analytics platform project repository",
+    "WEBSITE",
+    "    Personal portfolio website repository",
     "",
     "DEALMAKER",
     "    Machine learning + analytics work repository",
@@ -123,7 +123,7 @@ function showAbout() {
 function showProjects() {
   [
     "Projects",
-    "- Vote4     (type: OPEN VOTE4)",
+    "- Website   (type: OPEN WEBSITE)",
     "- DealMaker (type: OPEN DEALMAKER)",
     ""
   ].forEach(print);
@@ -200,7 +200,7 @@ function handleCommand(raw) {
     return;
   }
   if (cmd === "LS") {
-    print("ABOUT TDIL PROJECTS RESUME CONTACT APP VOTE4 DEALMAKER TOOLS LAB DEMO ASCII FRACTAL");
+    print("ABOUT TDIL PROJECTS RESUME CONTACT APP WEBSITE DEALMAKER TOOLS LAB DEMO ASCII FRACTAL");
     print();
     printPromptMarker();
     return;
@@ -244,10 +244,10 @@ function handleCommand(raw) {
     printPromptMarker();
     return;
   }
-  if (cmd === "VOTE4" || cmd === "TOPREP") {
-    print("VOTE4");
-    print("Sales analytics platform project");
-    print("Repository: OPEN VOTE4");
+  if (cmd === "WEBSITE") {
+    print("WEBSITE");
+    print("Personal portfolio website");
+    print("Repository: OPEN WEBSITE");
     print();
     printPromptMarker();
     return;
@@ -321,7 +321,7 @@ function handleCommand(raw) {
 
   if (cmd === "OPEN") {
     if (!arg || !links[arg]) {
-      print("Unknown target. Use: OPEN GITHUB|LINKEDIN|VOTE4|DEALMAKER|RESUME|CONTACT|APP");
+      print("Unknown target. Use: OPEN GITHUB|LINKEDIN|WEBSITE|DEALMAKER|RESUME|CONTACT|APP");
       print();
       printPromptMarker();
       return;
