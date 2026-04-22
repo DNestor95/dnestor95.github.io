@@ -14,7 +14,8 @@ const links = {
   DEALMAKER: "https://github.com/DNestor95/DealMaker",
   RESUME: "Resume 1-30.pdf",
   CONTACT: "mailto:me@dnestor95.com",
-  APP: "portal.html"
+  APP: "portal.html",
+  HOME: "index.html"
 };
 
 function print(text = "") {
@@ -200,7 +201,7 @@ function handleCommand(raw) {
     return;
   }
   if (cmd === "LS") {
-    print("ABOUT TDIL PROJECTS RESUME CONTACT APP WEBSITE DEALMAKER TOOLS LAB DEMO ASCII FRACTAL");
+    print("ABOUT TDIL PROJECTS RESUME CONTACT APP WEBSITE DEALMAKER TOOLS LAB DEMO ASCII FRACTAL HOME");
     print();
     printPromptMarker();
     return;
@@ -321,7 +322,7 @@ function handleCommand(raw) {
 
   if (cmd === "OPEN") {
     if (!arg || !links[arg]) {
-      print("Unknown target. Use: OPEN GITHUB|LINKEDIN|WEBSITE|DEALMAKER|RESUME|CONTACT|APP");
+      print("Unknown target. Use: OPEN GITHUB|LINKEDIN|WEBSITE|DEALMAKER|RESUME|CONTACT|APP|HOME");
       print();
       printPromptMarker();
       return;

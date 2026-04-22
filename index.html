@@ -3,21 +3,802 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daniel Nestor Terminal</title>
-  <link rel="stylesheet" href="cli.css" />
+  <title>Daniel Nestor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── DESIGN TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bg:     #282c34;
+      --bg2:    #21252b;
+      --panel:  #2c313c;
+      --panel2: #333842;
+      --border: #3e4452;
+      --fg:     #abb2bf;
+      --muted:  #636d83;
+      --blue:   #61afef;
+      --green:  #98c379;
+      --yellow: #e5c07b;
+      --red:    #e06c75;
+      --purple: #c678dd;
+      --cyan:   #56b6c2;
+      --orange: #d19a66;
+      --accent: var(--blue);
+      --radius: 12px;
+      --nav-h:  60px;
+    }
+
+    /* ── RESET ─────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 1.65;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── LAYOUT ────────────────────────────────────────────────────────── */
+    .container {
+      width: min(960px, 92vw);
+      margin: 0 auto;
+    }
+
+    /* ── NAV ───────────────────────────────────────────────────────────── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: color-mix(in srgb, var(--bg2) 88%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--fg);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      display: block;
+      padding: 6px 11px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--muted);
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--fg);
+      background: var(--panel);
+      text-decoration: none;
+    }
+
+    .nav-terminal a {
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    .nav-terminal a:hover {
+      color: var(--green);
+      background: color-mix(in srgb, var(--green) 12%, transparent);
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      padding: 6px;
+      cursor: pointer;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    /* ── SECTIONS ──────────────────────────────────────────────────────── */
+    section {
+      scroll-margin-top: var(--nav-h);
+      padding: 80px 0 56px;
+    }
+
+    /* ── HERO ──────────────────────────────────────────────────────────── */
+    #home {
+      padding-top: 100px;
+    }
+
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1.08;
+    }
+
+    .hero-name .accent { color: var(--accent); }
+
+    .hero-tagline {
+      margin-top: 18px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 54ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    /* ── BUTTONS ───────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--fg);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      text-decoration: none;
+    }
+
+    .btn:hover { background: var(--panel2); text-decoration: none; }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+    }
+
+    .btn-primary:hover { filter: brightness(1.1); background: var(--accent); }
+
+    /* ── SECTION HEADINGS ──────────────────────────────────────────────── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    .section-title {
+      font-size: clamp(1.5rem, 2.8vw, 2rem);
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 28px;
+    }
+
+    /* ── CARDS ─────────────────────────────────────────────────────────── */
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .card:hover {
+      background: var(--panel2);
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    /* ── GRIDS ─────────────────────────────────────────────────────────── */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── ABOUT ─────────────────────────────────────────────────────────── */
+    .about-bio {
+      font-size: 1rem;
+      color: var(--fg);
+      max-width: 66ch;
+      margin-bottom: 28px;
+      font-weight: 400;
+      line-height: 1.8;
+    }
+
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ── TDIL ──────────────────────────────────────────────────────────── */
+    .tdil-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .tdil-entry {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 16px 20px;
+    }
+
+    .tdil-entry-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .tdil-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .tdil-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    .tag-green  { background: color-mix(in srgb, var(--green)  14%, transparent); color: var(--green);  border: 1px solid color-mix(in srgb, var(--green)  28%, transparent); }
+    .tag-yellow { background: color-mix(in srgb, var(--yellow) 14%, transparent); color: var(--yellow); border: 1px solid color-mix(in srgb, var(--yellow) 28%, transparent); }
+    .tag-purple { background: color-mix(in srgb, var(--purple) 14%, transparent); color: var(--purple); border: 1px solid color-mix(in srgb, var(--purple) 28%, transparent); }
+    .tag-cyan   { background: color-mix(in srgb, var(--cyan)   14%, transparent); color: var(--cyan);   border: 1px solid color-mix(in srgb, var(--cyan)   28%, transparent); }
+    .tag-orange { background: color-mix(in srgb, var(--orange) 14%, transparent); color: var(--orange); border: 1px solid color-mix(in srgb, var(--orange) 28%, transparent); }
+    .tag-red    { background: color-mix(in srgb, var(--red)    14%, transparent); color: var(--red);    border: 1px solid color-mix(in srgb, var(--red)    28%, transparent); }
+    .tag-blue   { background: color-mix(in srgb, var(--blue)   14%, transparent); color: var(--blue);   border: 1px solid color-mix(in srgb, var(--blue)   28%, transparent); }
+
+    .tdil-text {
+      font-size: 0.9rem;
+      color: var(--fg);
+      line-height: 1.65;
+    }
+
+    /* ── RESUME ────────────────────────────────────────────────────────── */
+    .resume-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .resume-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ── CONTACT ───────────────────────────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── FOOTER ────────────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 28px 0;
+      margin-top: 48px;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .footer-brand {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    /* ── TWEAKS PANEL ──────────────────────────────────────────────────── */
+    .tweaks-panel {
+      display: none;
+      position: fixed;
+      bottom: 76px;
+      right: 24px;
+      z-index: 999;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      width: 228px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    }
+
+    .tweaks-panel.open { display: block; }
+
+    .tweaks-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .tweaks-row-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .accent-swatches {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .swatch {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.1s, border-color 0.1s;
+    }
+
+    .swatch:hover,
+    .swatch.active { transform: scale(1.25); border-color: var(--fg); }
+
+    .tweaks-font-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tweaks-font-row button {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .tweaks-font-row button:hover { background: var(--border); }
+
+    #tweaks-font-size {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--fg);
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .tweaks-toggle {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--muted);
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .tweaks-toggle:hover,
+    .tweaks-toggle.active { color: var(--accent); background: var(--panel2); }
+
+    /* ── RESPONSIVE ────────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .nav-hamburger { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--bg2);
+        border-bottom: 1px solid var(--border);
+        padding: 8px 0;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links li { display: block; }
+
+      .nav-links a {
+        border-radius: 0;
+        padding: 11px 24px;
+        font-size: 0.95rem;
+      }
+
+      #home { padding-top: 68px; }
+    }
+  </style>
 </head>
 <body>
-  <main class="terminal" aria-label="Terminal interface">
-    <div class="top-link" role="navigation" aria-label="Alternative site">
-      <a href="modern/index.html">Open modern responsive site</a>
+
+  <!-- ── NAV ──────────────────────────────────────────────────────────────── -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a class="nav-brand" href="#home">dnestor.com</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#tdil">TDIL</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li class="nav-terminal"><a href="terminal.html">&gt;_</a></li>
+      </ul>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div id="output" class="output"></div>
-    <div class="prompt">
-      <span class="prompt-label">&gt;</span>
-      <input id="cmdInput" type="text" autocomplete="off" spellcheck="false" aria-label="Command input" />
-      <span class="cursor" aria-hidden="true"></span>
-    </div>
+  </nav>
+
+  <main>
+
+    <!-- ── HOME ───────────────────────────────────────────────────────────── -->
+    <section id="home">
+      <div class="container">
+        <p class="hero-label">// portfolio</p>
+        <h1 class="hero-name">Daniel <span class="accent">Nestor</span></h1>
+        <p class="hero-tagline">Builder of tools, explorer of ideas. Welcome to my corner of the web.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn" href="terminal.html">Open Terminal</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ABOUT ──────────────────────────────────────────────────────────── -->
+    <section id="about">
+      <div class="container">
+        <p class="section-label">// about</p>
+        <h2 class="section-title">About Me</h2>
+        <p class="about-bio">
+          Thank you for visiting my site. This is where I house the projects I work on, give
+          my friends access to the tools we use together, and have a place to experiment and
+          learn new things. I hope you find something interesting here as I continue to add
+          more.
+        </p>
+        <div class="profile-links">
+          <a class="btn" href="https://github.com/DNestor95" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/daniel-nestor-b3685a151/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ───────────────────────────────────────────────────────── -->
+    <section id="projects">
+      <div class="container">
+        <p class="section-label">// projects</p>
+        <h2 class="section-title">Projects</h2>
+        <div class="grid-3">
+          <div class="card project-card">
+            <div class="card-title">Website</div>
+            <p class="card-body">This personal portfolio site — fully static, no build step, hosted on GitHub Pages.</p>
+            <a class="card-link" href="https://github.com/DNestor95/dnestor95.github.io" target="_blank" rel="noopener noreferrer">View Repository →</a>
+          </div>
+          <div class="card project-card">
+            <div class="card-title">DealMaker</div>
+            <p class="card-body">Creating data to help sales teams model success through machine learning and analytics.</p>
+            <a class="card-link" href="https://github.com/DNestor95/DealMaker" target="_blank" rel="noopener noreferrer">View Repository →</a>
+          </div>
+          <div class="card project-card">
+            <div class="card-title">Tools &amp; Lab</div>
+            <p class="card-body">Development utilities, experimental prototypes, and demos — including ASCII art and fractal renderers.</p>
+            <a class="card-link" href="terminal.html">Explore in Terminal →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── TDIL ───────────────────────────────────────────────────────────── -->
+    <section id="tdil">
+      <div class="container">
+        <p class="section-label">// today i learned</p>
+        <h2 class="section-title">TDIL</h2>
+        <div class="tdil-timeline" id="tdil-timeline">
+          <p style="color:var(--muted); font-size:0.9rem;">Loading entries…</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── RESUME ─────────────────────────────────────────────────────────── -->
+    <section id="resume">
+      <div class="container">
+        <p class="section-label">// resume</p>
+        <h2 class="section-title">Resume</h2>
+        <div class="card resume-card">
+          <p class="resume-desc">Download or view the latest version of my resume as a PDF.</p>
+          <a class="btn btn-primary" href="Resume 1-30.pdf" target="_blank" rel="noopener noreferrer">Open PDF →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ────────────────────────────────────────────────────────── -->
+    <section id="contact">
+      <div class="container">
+        <p class="section-label">// contact</p>
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-grid">
+          <div class="card">
+            <div class="card-title">Email</div>
+            <p class="card-body"><a href="mailto:me@dnestor95.com">me@dnestor95.com</a></p>
+          </div>
+          <div class="card">
+            <div class="card-title">GitHub</div>
+            <p class="card-body"><a href="https://github.com/DNestor95" target="_blank" rel="noopener noreferrer">github.com/DNestor95</a></p>
+          </div>
+          <div class="card">
+            <div class="card-title">LinkedIn</div>
+            <p class="card-body"><a href="https://www.linkedin.com/in/daniel-nestor-b3685a151/" target="_blank" rel="noopener noreferrer">View Profile</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
-  <script src="cli.js"></script>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="footer-brand">dnestor.com</span>
+      <span>Built static. No frameworks. <a href="terminal.html" style="color:var(--muted);">&gt;_</a></span>
+    </div>
+  </footer>
+
+  <!-- ── TWEAKS PANEL ──────────────────────────────────────────────────────── -->
+  <div class="tweaks-panel" id="tweaks-panel" role="complementary" aria-label="Tweaks panel">
+    <div class="tweaks-title">Tweaks</div>
+    <div class="tweaks-row-label">Accent Color</div>
+    <div class="accent-swatches" id="accent-swatches"></div>
+    <div class="tweaks-row-label">Font Size</div>
+    <div class="tweaks-font-row">
+      <button id="font-dec" aria-label="Decrease font size">−</button>
+      <span id="tweaks-font-size">16</span>
+      <button id="font-inc" aria-label="Increase font size">+</button>
+    </div>
+  </div>
+  <button class="tweaks-toggle" id="tweaks-toggle" aria-label="Toggle tweaks panel" title="Tweaks">⚙</button>
+
+  <script>
+    // ── TWEAKS ─────────────────────────────────────────────────────────────────
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accent":"#61afef","fontSize":16}/*EDITMODE-END*/;
+
+    const ACCENT_OPTIONS = [
+      { color: "#61afef", name: "blue"   },
+      { color: "#98c379", name: "green"  },
+      { color: "#c678dd", name: "purple" },
+      { color: "#e5c07b", name: "yellow" },
+      { color: "#56b6c2", name: "cyan"   },
+    ];
+
+    let tweaks = { ...TWEAK_DEFAULTS };
+
+    function applyTweaks() {
+      document.documentElement.style.setProperty("--accent", tweaks.accent);
+      document.documentElement.style.fontSize = tweaks.fontSize + "px";
+      document.getElementById("tweaks-font-size").textContent = tweaks.fontSize;
+      document.querySelectorAll(".swatch").forEach(s => {
+        s.classList.toggle("active", s.dataset.color === tweaks.accent);
+      });
+    }
+
+    // Build accent swatches
+    const swatchContainer = document.getElementById("accent-swatches");
+    ACCENT_OPTIONS.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "swatch";
+      btn.dataset.color = opt.color;
+      btn.title = opt.name;
+      btn.style.background = opt.color;
+      btn.setAttribute("aria-label", "Set accent to " + opt.name);
+      btn.addEventListener("click", () => { tweaks.accent = opt.color; applyTweaks(); });
+      swatchContainer.appendChild(btn);
+    });
+
+    document.getElementById("font-dec").addEventListener("click", () => {
+      tweaks.fontSize = Math.max(12, tweaks.fontSize - 1);
+      applyTweaks();
+    });
+    document.getElementById("font-inc").addEventListener("click", () => {
+      tweaks.fontSize = Math.min(22, tweaks.fontSize + 1);
+      applyTweaks();
+    });
+
+    const tweaksPanel  = document.getElementById("tweaks-panel");
+    const tweaksToggle = document.getElementById("tweaks-toggle");
+    tweaksToggle.addEventListener("click", () => {
+      const open = tweaksPanel.classList.toggle("open");
+      tweaksToggle.classList.toggle("active", open);
+    });
+
+    applyTweaks();
+
+    // ── NAV ────────────────────────────────────────────────────────────────────
+    const hamburger = document.getElementById("nav-hamburger");
+    const navLinks  = document.getElementById("nav-links");
+
+    hamburger.addEventListener("click", () => {
+      const expanded = hamburger.getAttribute("aria-expanded") === "true";
+      hamburger.setAttribute("aria-expanded", String(!expanded));
+      navLinks.classList.toggle("open", !expanded);
+    });
+
+    navLinks.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        hamburger.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    // Active link via IntersectionObserver
+    const sections   = document.querySelectorAll("section[id]");
+    const navAnchors = document.querySelectorAll(".nav-links a[href^='#']");
+
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          navAnchors.forEach(a => {
+            a.classList.toggle("active", a.getAttribute("href") === "#" + id);
+          });
+        }
+      });
+    }, { rootMargin: "-60px 0px -55% 0px", threshold: 0 });
+
+    sections.forEach(s => navObserver.observe(s));
+
+    // ── TDIL ───────────────────────────────────────────────────────────────────
+    const TAG_COLORS  = ["green", "yellow", "purple", "cyan", "orange", "red", "blue"];
+    const tagColorMap = {};
+    let   tagColorIdx = 0;
+
+    function getTagColor(tag) {
+      if (!tag) return "blue";
+      if (!tagColorMap[tag]) {
+        tagColorMap[tag] = TAG_COLORS[tagColorIdx % TAG_COLORS.length];
+        tagColorIdx++;
+      }
+      return tagColorMap[tag];
+    }
+
+    function renderTdil(entries) {
+      const container = document.getElementById("tdil-timeline");
+      container.innerHTML = "";
+
+      if (!entries || entries.length === 0) {
+        container.innerHTML = '<p style="color:var(--muted);font-size:0.9rem;">No entries yet. Check back soon.</p>';
+        return;
+      }
+
+      const sorted = [...entries].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      sorted.forEach(entry => {
+        const color = getTagColor(entry.tag);
+        const div   = document.createElement("div");
+        div.className = "tdil-entry";
+        div.innerHTML =
+          '<div class="tdil-entry-meta">' +
+            '<span class="tdil-date">' + entry.date + '</span>' +
+            (entry.tag ? '<span class="tdil-tag tag-' + color + '">' + entry.tag + '</span>' : '') +
+          '</div>' +
+          '<p class="tdil-text">' + entry.entry + '</p>';
+        container.appendChild(div);
+      });
+    }
+
+    fetch("tdil.json")
+      .then(r => r.json())
+      .then(renderTdil)
+      .catch(() => {
+        document.getElementById("tdil-timeline").innerHTML =
+          '<p style="color:var(--muted);font-size:0.9rem;">Could not load TDIL entries.</p>';
+      });
+  </script>
+
 </body>
 </html>

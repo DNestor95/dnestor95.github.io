@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Nestor | Terminal</title>
+  <link rel="stylesheet" href="cli.css" />
+</head>
+<body>
+  <main class="terminal" aria-label="Terminal interface">
+    <div class="top-link" role="navigation" aria-label="Alternative site">
+      <a href="index.html">← Back to portfolio site</a>
+    </div>
+    <div id="output" class="output"></div>
+    <div class="prompt">
+      <span class="prompt-label">&gt;</span>
+      <input id="cmdInput" type="text" autocomplete="off" spellcheck="false" aria-label="Command input" />
+      <span class="cursor" aria-hidden="true"></span>
+    </div>
+  </main>
+  <script src="cli.js"></script>
+</body>
+</html>

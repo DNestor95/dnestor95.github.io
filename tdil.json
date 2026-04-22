@@ -1,0 +1,27 @@
+[
+  {
+    "date": "2026-04-22",
+    "tag": "CSS",
+    "entry": "CSS color-mix() lets you blend two colors in a given color space — great for generating transparent tints from a single token without maintaining a separate alpha variable."
+  },
+  {
+    "date": "2026-04-15",
+    "tag": "JavaScript",
+    "entry": "IntersectionObserver with a negative rootMargin is the cleanest way to track which section is active in a single-page site without scroll event listeners."
+  },
+  {
+    "date": "2026-04-08",
+    "tag": "GitHub Pages",
+    "entry": "A CNAME file in the repo root is all GitHub Pages needs to serve a custom domain — no DNS-provider-side TTL tricks required if the A records are already set."
+  },
+  {
+    "date": "2026-03-30",
+    "tag": "Design",
+    "entry": "Atom One Dark's palette works well as a design system because every color already has a clear semantic role — bg, fg, muted, and six accent hues with built-in contrast."
+  },
+  {
+    "date": "2026-03-21",
+    "tag": "HTML",
+    "entry": "scroll-margin-top on sections offsets anchor-link jumps by exactly the sticky nav height, so the heading doesn't hide behind the bar after clicking a nav link."
+  }
+]
