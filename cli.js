@@ -18,6 +18,8 @@ const links = {
   HOME: "index.html"
 };
 
+const TDIL_DRAFTS_KEY = "dnestor.tdilDrafts";
+
 function print(text = "") {
   const line = document.createElement("div");
   line.className = "line";
@@ -56,6 +58,15 @@ function help() {
     "",
     "CONTACT",
     "    Email and links",
+    "",
+    "TDIL",
+    "    Show Today Daniel/I Learned entries",
+    "",
+    "TDIL ADD <tag> <entry>",
+    "    Draft a new TDIL entry and print the local save command",
+    "",
+    "TDIL DRAFTS",
+    "    Show TDIL drafts saved in this browser",
     "",
     "",
     "DEVELOPMENT",
@@ -150,12 +161,169 @@ function showContact() {
   printPromptMarker();
 }
 
+function readTdilDrafts() {
+  try {
+    const drafts = JSON.parse(localStorage.getItem(TDIL_DRAFTS_KEY) || "[]");
+    return Array.isArray(drafts) ? drafts : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveTdilDraft(draft) {
+  const drafts = readTdilDrafts();
+  drafts.unshift(draft);
+  localStorage.setItem(TDIL_DRAFTS_KEY, JSON.stringify(drafts.slice(0, 20)));
+}
+
+function shellQuote(value) {
+  return '"' + value.replace(/(["\\$`])/g, "\\$1") + '"';
+}
+
+function localDateString(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function renderTdilEntries(entries) {
+  print("TDIL");
+  print("Build notes and implementation lessons.");
+  print("--------------------------------");
+
+  if (!entries.length) {
+    print("No entries found.");
+    print();
+    printPromptMarker();
+    return;
+  }
+
+  entries
+    .slice()
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .forEach((entry) => {
+      const tag = entry.tag ? ` [${entry.tag}]` : "";
+      print(`${entry.date}${tag}`);
+      print(`  ${entry.entry}`);
+      print();
+    });
+
+  print("Add one locally:");
+  print('  npm run tdil -- --tag CSS "What I learned today"');
+  print();
+  printPromptMarker();
+}
+
 function showTdil() {
+  print("Loading TDIL entries...");
+
+  fetch("tdil.json")
+    .then((response) => {
+      if (!response.ok) throw new Error("Could not load tdil.json");
+      return response.json();
+    })
+    .then((entries) => renderTdilEntries(Array.isArray(entries) ? entries : []))
+    .catch(() => {
+      print("Could not load tdil.json.");
+      print("If you opened this file directly, use the local preview server instead.");
+      print();
+      printPromptMarker();
+    });
+}
+
+function showTdilHelp() {
   [
+    "TDIL COMMANDS",
+    "--------------------------------",
     "TDIL",
-    "Build notes and implementation lessons.",
+    "    Show published TDIL entries from tdil.json",
+    "",
+    "TDIL ADD <tag> <entry>",
+    "    Save a browser draft and print the repo command to add it",
+    "",
+    "TDIL DRAFTS",
+    "    List drafts saved in this browser",
     ""
   ].forEach(print);
+  printPromptMarker();
+}
+
+function addTdilDraft(args) {
+  const parts = args.trim().split(/\s+/);
+  const tag = parts.shift();
+  const entry = parts.join(" ").trim();
+
+  if (!tag || !entry) {
+    print("Usage: TDIL ADD <tag> <entry>");
+    print('Example: TDIL ADD CSS learned how to keep terminal output readable');
+    print();
+    printPromptMarker();
+    return;
+  }
+
+  const draft = {
+    date: localDateString(),
+    tag,
+    entry
+  };
+
+  saveTdilDraft(draft);
+  print("TDIL draft saved in this browser.");
+  print("Run this from the repo to publish it:");
+  print(`npm run tdil -- --tag ${shellQuote(tag)} ${shellQuote(entry)}`);
+  print();
+  print("Then commit and push tdil.json.");
+  print();
+  printPromptMarker();
+}
+
+function showTdilDrafts() {
+  const drafts = readTdilDrafts();
+
+  print("TDIL DRAFTS");
+  print("--------------------------------");
+  if (!drafts.length) {
+    print("No drafts saved in this browser.");
+    print();
+    printPromptMarker();
+    return;
+  }
+
+  drafts.forEach((draft, index) => {
+    const tag = draft.tag ? ` [${draft.tag}]` : "";
+    print(`${index + 1}. ${draft.date}${tag}`);
+    print(`   ${draft.entry}`);
+    print(`   npm run tdil -- --date ${draft.date} --tag ${shellQuote(draft.tag)} ${shellQuote(draft.entry)}`);
+    print();
+  });
+
+  printPromptMarker();
+}
+
+function handleTdilCommand(args) {
+  const [subcommand = ""] = args.trim().split(/\s+/, 1);
+  const rest = args.slice(subcommand.length).trim();
+
+  if (!subcommand) {
+    showTdil();
+    return;
+  }
+  if (subcommand.toUpperCase() === "ADD") {
+    addTdilDraft(rest);
+    return;
+  }
+  if (subcommand.toUpperCase() === "DRAFTS") {
+    showTdilDrafts();
+    return;
+  }
+  if (subcommand.toUpperCase() === "HELP") {
+    showTdilHelp();
+    return;
+  }
+
+  print("Unknown TDIL command. Use: TDIL, TDIL ADD, TDIL DRAFTS, or TDIL HELP");
+  print();
   printPromptMarker();
 }
 
@@ -192,6 +360,7 @@ function handleCommand(raw) {
   const [rawCmd, rawArg] = input.split(/\s+/, 2);
   const cmd = rawCmd.toUpperCase();
   const arg = rawArg ? rawArg.toUpperCase() : "";
+  const args = input.slice(rawCmd.length).trim();
 
   if (cmd === "HELP") return help();
   if (cmd === "CLEAR") {
@@ -202,6 +371,7 @@ function handleCommand(raw) {
   }
   if (cmd === "LS") {
     print("ABOUT TDIL PROJECTS RESUME CONTACT APP WEBSITE DEALMAKER TOOLS LAB DEMO ASCII FRACTAL HOME");
+    print("TDIL ADD TDIL DRAFTS");
     print();
     printPromptMarker();
     return;
@@ -227,7 +397,7 @@ function handleCommand(raw) {
     return;
   }
   if (cmd === "TDIL") {
-    showTdil();
+    handleTdilCommand(args);
     return;
   }
   if (cmd === "RESUME") {

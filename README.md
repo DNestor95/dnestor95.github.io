@@ -5,3 +5,13 @@
  Feel free to take a look around and have a look at the terminal that I have for this site. I want to eventually add some fun stuff to that 
 
  Thanks for taking a look! 
+
+## TDIL
+
+Add a Today Daniel/I Learned entry from the repo root:
+
+```sh
+npm run tdil -- --tag CSS "What I learned today"
+```
+
+Use `--date YYYY-MM-DD` when you want to backdate an entry.

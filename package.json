@@ -1,0 +1,5 @@
+{
+  "scripts": {
+    "tdil": "node scripts/add-tdil.mjs"
+  }
+}

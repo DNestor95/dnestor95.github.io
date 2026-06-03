@@ -183,6 +183,56 @@
       margin-top: 34px;
     }
 
+    .activity-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+      max-width: 620px;
+      margin-top: 34px;
+      padding: 18px 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .activity-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .activity-copy {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .commit-count {
+      min-width: 96px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: var(--fg);
+      line-height: 1;
+      text-align: right;
+    }
+
+    .commit-count[data-state="loading"] {
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+
+    .commit-count[data-state="error"] {
+      color: var(--yellow);
+      font-size: 1.2rem;
+    }
+
     /* ── BUTTONS ───────────────────────────────────────────────────────── */
     .btn {
       display: inline-flex;
@@ -294,6 +344,23 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
+    }
+
+    .tdil-tools {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      margin: -10px 0 22px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .tdil-tools code {
+      color: var(--green);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      overflow-wrap: anywhere;
     }
 
     .tdil-entry {
@@ -514,6 +581,18 @@
       }
 
       #home { padding-top: 68px; }
+
+      .activity-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .commit-count {
+        text-align: left;
+      }
+
+      .tdil-tools {
+        display: block;
+      }
     }
   </style>
 </head>
@@ -549,6 +628,13 @@
         <div class="hero-actions">
           <a class="btn btn-primary" href="#projects">View Projects</a>
           <a class="btn" href="terminal.html">Open Terminal</a>
+        </div>
+        <div class="activity-panel" aria-live="polite">
+          <div>
+            <div class="activity-kicker">GitHub activity</div>
+            <p class="activity-copy">Commits pushed to this website repository.</p>
+          </div>
+          <div class="commit-count" id="commit-count" data-state="loading">...</div>
         </div>
       </div>
     </section>
@@ -601,6 +687,10 @@
       <div class="container">
         <p class="section-label">// today i learned</p>
         <h2 class="section-title">TDIL</h2>
+        <div class="tdil-tools">
+          <span>Short notes from current build work and lessons learned.</span>
+          <code>npm run tdil -- --tag CSS "what I learned"</code>
+        </div>
         <div class="tdil-timeline" id="tdil-timeline">
           <p style="color:var(--muted); font-size:0.9rem;">Loading entries…</p>
         </div>
@@ -752,6 +842,39 @@
 
     sections.forEach(s => navObserver.observe(s));
 
+    // ── GITHUB ACTIVITY ───────────────────────────────────────────────────────
+    const GITHUB_OWNER = "DNestor95";
+    const GITHUB_REPO = "dnestor95.github.io";
+
+    function getTotalFromLinkHeader(linkHeader) {
+      if (!linkHeader) return null;
+      const lastLink = linkHeader.split(",").find(part => part.includes('rel="last"'));
+      if (!lastLink) return null;
+      const match = lastLink.match(/[?&]page=(\d+)/);
+      return match ? Number(match[1]) : null;
+    }
+
+    function renderCommitCount(value, state = "ready") {
+      const countEl = document.getElementById("commit-count");
+      countEl.dataset.state = state;
+      countEl.textContent = value;
+    }
+
+    fetch("https://api.github.com/repos/" + GITHUB_OWNER + "/" + GITHUB_REPO + "/commits?per_page=1")
+      .then(response => {
+        if (!response.ok) throw new Error("GitHub API unavailable");
+        const total = getTotalFromLinkHeader(response.headers.get("Link"));
+        if (total) {
+          renderCommitCount(total.toLocaleString());
+          return null;
+        }
+        return response.json();
+      })
+      .then(commits => {
+        if (Array.isArray(commits)) renderCommitCount(String(commits.length));
+      })
+      .catch(() => renderCommitCount("offline", "error"));
+
     // ── TDIL ───────────────────────────────────────────────────────────────────
     const TAG_COLORS  = ["green", "yellow", "purple", "cyan", "orange", "red", "blue"];
     const tagColorMap = {};
@@ -781,12 +904,26 @@
         const color = getTagColor(entry.tag);
         const div   = document.createElement("div");
         div.className = "tdil-entry";
-        div.innerHTML =
-          '<div class="tdil-entry-meta">' +
-            '<span class="tdil-date">' + entry.date + '</span>' +
-            (entry.tag ? '<span class="tdil-tag tag-' + color + '">' + entry.tag + '</span>' : '') +
-          '</div>' +
-          '<p class="tdil-text">' + entry.entry + '</p>';
+        const meta = document.createElement("div");
+        const date = document.createElement("span");
+        const text = document.createElement("p");
+
+        meta.className = "tdil-entry-meta";
+        date.className = "tdil-date";
+        date.textContent = entry.date;
+        meta.appendChild(date);
+
+        if (entry.tag) {
+          const tag = document.createElement("span");
+          tag.className = "tdil-tag tag-" + color;
+          tag.textContent = entry.tag;
+          meta.appendChild(tag);
+        }
+
+        text.className = "tdil-text";
+        text.textContent = entry.entry;
+        div.appendChild(meta);
+        div.appendChild(text);
         container.appendChild(div);
       });
     }
