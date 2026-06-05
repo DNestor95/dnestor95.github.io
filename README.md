@@ -15,3 +15,11 @@ npm run tdil -- --tag CSS "What I learned today"
 ```
 
 Use `--date YYYY-MM-DD` when you want to backdate an entry.
+
+From the website terminal, start a guided draft with:
+
+```text
+ADD TDIL JavaScript prompts
+```
+
+The terminal will ask for the date and then the body.
